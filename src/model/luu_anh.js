@@ -4,11 +4,15 @@ const { Model, Sequelize } = _sequelize;
 export default class luu_anh extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
-    nguoi_dung_id: {
+    luu_anh_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
+      primaryKey: true
+    },
+    nguoi_dung_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: 'nguoi_dung',
         key: 'nguoi_dung_id'
@@ -36,7 +40,7 @@ export default class luu_anh extends Model {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "nguoi_dung_id" },
+          { name: "luu_anh_id" },
         ]
       },
       {
@@ -44,6 +48,13 @@ export default class luu_anh extends Model {
         using: "BTREE",
         fields: [
           { name: "hinh_id" },
+        ]
+      },
+      {
+        name: "fk_luuAnh_nguoiDung",
+        using: "BTREE",
+        fields: [
+          { name: "nguoi_dung_id" },
         ]
       },
     ]

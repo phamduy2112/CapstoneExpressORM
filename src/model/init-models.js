@@ -20,7 +20,7 @@ export default function initModels(sequelize) {
   hinh_anh.belongsTo(nguoi_dung, { as: "nguoi_dung", foreignKey: "nguoi_dung_id"});
   nguoi_dung.hasMany(hinh_anh, { as: "hinh_anhs", foreignKey: "nguoi_dung_id"});
   luu_anh.belongsTo(nguoi_dung, { as: "nguoi_dung", foreignKey: "nguoi_dung_id"});
-  nguoi_dung.hasOne(luu_anh, { as: "luu_anh", foreignKey: "nguoi_dung_id"});
+  nguoi_dung.hasMany(luu_anh, { as: "luu_anhs", foreignKey: "nguoi_dung_id"});
 
   return {
     binh_luan,

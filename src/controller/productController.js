@@ -138,4 +138,28 @@ const checkSavedImage = async (req, res) => {
       });
     }
   };
-export {getProducts,searchProducts,productDetail,commentDetail,checkSavedImage}
+
+//   post comment với người dùng
+const addComment=async(req,res)=>{
+    try{
+        let { nguoi_dung_id	,hinh_id	,noi_dung	}=req.body
+        let newComment={
+
+            nguoi_dung_id,
+            hinh_id,
+            noi_dung,
+            ngay_binh_luan:new Date(),
+        }
+        let comment=await model.binh_luan.create(newComment);
+        if(comment){
+            responseSend(res,comment,"Thêm bình luận thành công !",200)
+        }else{
+            responseSend(res,comment,"Thêm thất bại !",401)
+        }
+    }catch(e){
+        console.log(e);
+        responseSend(res,"","Thất bại !",500)
+
+    }
+}
+export {getProducts,searchProducts,productDetail,addComment,commentDetail,checkSavedImage}
