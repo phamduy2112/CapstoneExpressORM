@@ -2,6 +2,9 @@ import { Op } from "sequelize";
 import { responseSend } from "../config/response.js"
 import sequelize from "../model/connect.js";
 import initModels from "../model/init-models.js";
+import { deleteFile, upload } from '../config/upload.js';
+import path from 'path';
+
 let model=initModels(sequelize);
 
 const getProducts=async(req,res)=>{
@@ -143,6 +146,12 @@ const checkSavedImage = async (req, res) => {
 const addComment=async(req,res)=>{
     try{
         let { nguoi_dung_id	,hinh_id	,noi_dung	}=req.body
+           // kt người dùng tồn tại
+    const checkUser=await model.nguoi_dung.findByPk(nguoi_dung_id);
+    if(!checkUser){
+        return res.status(400).json({ message: 'Người dùng chưa tồn tại' });
+
+    }
         let newComment={
 
             nguoi_dung_id,
@@ -162,4 +171,149 @@ const addComment=async(req,res)=>{
 
     }
 }
-export {getProducts,searchProducts,productDetail,addComment,commentDetail,checkSavedImage}
+// post image 
+const addImage=async(req,res)=>{
+    try{
+        upload.single('image')(req, res, async (err) => {
+            if (err) {
+                responseSend(res,"","Lỗi khi updload",400)
+                ;
+            }
+    
+    const {mo_ta,nguoi_dung_id}=req.body;
+    const ten_hinh = req.file ? `${req.file.filename}` : '';
+    // kt người dùng tồn tại
+    const checkUser=await model.nguoi_dung.findByPk(nguoi_dung_id);
+    if(!checkUser){
+        return             responseSend(res,"","Người dùng chưa tồn tại",400)
+        ;
+
+    }
+            const result=await model.hinh_anh.create({
+                ten_hinh,nguoi_dung_id,mo_ta,duong_dan:"http://localhost:8080/public/img/",
+            
+            }) 
+            if(result){
+                // 
+             
+                responseSend(res,result,"Thêm hình ảnh thành công!",200)
+            }else{
+                responseSend(res,result,"Thêm thất bại !",401)
+            }
+        })
+
+    }catch(e){
+        console.log(e);
+        responseSend(res,"","Thất bại !",500)
+    }
+}
+// delete hình
+const deleteImage=async(req,res)=>{
+    try{
+ const {idImage}=req.params;
+    const checkProduct=await model.hinh_anh.findAll({
+        where:{
+            hinh_id:idImage,
+        }
+    })
+    if(!checkProduct){
+        responseSend(res,"","Không có hình ảnh",400)
+
+    }
+    const filePath = path.join('public', 'img', checkProduct[0].ten_hinh);
+    deleteFile(filePath);
+
+    const result=await model.hinh_anh.destroy({   where:{
+        hinh_id:idImage,
+    } })
+    
+        if(result){
+            responseSend(res,"","Xóa thành công sản phẩm",200)
+        } else {
+          responseSend(res,"","Lỗi khi xóa sản phẩm",500)
+
+        }
+    }catch(e){
+        console.log(e);
+        responseSend(res,"","Thất bại !",500)
+
+    }
+   
+}
+// get danh sách ảnh đã tạo theo user id.
+const getListImageByUser=async(req,res)=>{
+    try{
+        let {idUser}=req.params;
+        let imageByUser=await model.hinh_anh.findAll({
+            where:{
+                nguoi_dung_id:idUser,
+            }
+
+        })
+        if(!imageByUser){
+            responseSend(res,"","Không có hình ảnh",400)
+
+        }
+        responseSend(res,imageByUser,"Thành công !",200)
+
+    }catch(e){
+        console.log(e);
+        responseSend(res,"","Thất bại !",500)
+
+    }
+}
+// get danh sách ảnh đã lưu theo user id.
+const getListSaveImageByUser=async(req,res)=>{
+    try{
+        let {idUser}=req.params;
+        let imageByUser=await model.luu_anh.findAll({
+            where:{
+                nguoi_dung_id:idUser,
+            }
+
+        })
+        if(!imageByUser){
+            responseSend(res,"","Chưa lưu hình ảnh",400)
+
+        }
+        responseSend(res,imageByUser,"Thành công !",200)
+
+    }catch(e){
+        console.log(e);
+        responseSend(res,"","Thất bại !",500)
+
+    }
+}
+const addImageSave=async(req,res)=>{
+    try{
+        const {hinh_id,nguoi_dung_id}=req.body;
+        console.log(hinh_id);
+        const checkProduct=await model.hinh_anh.findAll({
+            where:{
+                hinh_id
+            }
+        })
+        if(checkProduct.length==0){
+            responseSend(res,"","Không có hình ảnh",400)
+    
+        }
+    
+    
+        const addSaveImage=await model.luu_anh.create({
+            hinh_id,nguoi_dung_id,ngay_luu:new Date(),
+        })
+  
+        if(addSaveImage){
+            responseSend(res, addSaveImage, "Lưu hình ảnh thành công", 200);
+    
+        }else{
+            responseSend(res,"","Lỗi lưu hình ảnh",400)
+        }
+    }catch(e){
+        console.log(e);
+        responseSend(res, "", "Thất bại !", 500);
+    
+    }
+    }
+
+export {getProducts,searchProducts,addImage,addImageSave,deleteImage,productDetail,getListImageByUser,addComment,commentDetail,checkSavedImage,getListSaveImageByUser}

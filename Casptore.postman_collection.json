@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "c9d18d80-bfb5-4dfa-af2a-f7510610fb67",
+		"name": "Casptore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35083070"
+	},
+	"item": [
+		{
+			"name": "đăng kí",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"duyp7484@gmail.com\",\r\n    \"matKhau\":\"123456\",\r\n    \"hoTen\":\"Duy\",\r\n    \"tuoi\":19\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "đăng nhập",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"duyp7484@gmail.com\",\r\n    \"matKhau\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lấy tất cả sản phẩm",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/get-products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"get-products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tìm kiếm sản phẩm",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/search-products?keyword=v",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"search-products"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "v"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lấy hình ảnh và người dùng sản phẩm chi tiết",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/product-detail-image/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"product-detail-image",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lấy bình luận và hình ảnh sản phẩm chi tiết",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/comment-detail-image/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"comment-detail-image",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Hình Ảnh đã lưu",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjF9LCJpYXQiOjE3MjA5NTgxNzgsImV4cCI6MTcyMTAwMTM3OH0.Rtga_U2Rw2diYzymcbn-GhBXcZNMbYuzditDeC7BZlc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/product/check-image/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"check-image",
+						"7"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjF9LCJpYXQiOjE3MjA5NTgxNzgsImV4cCI6MTcyMTAwMTM3OH0.Rtga_U2Rw2diYzymcbn-GhBXcZNMbYuzditDeC7BZlc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "thêm bình luận người dùng",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"nguoi_dung_id\":1,\r\n    \"hinh_id\":1,\r\n    \"noi_dung\":\"Hay nha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product/add-comment",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"add-comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "thêm hình ảnh người dùng",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "postman-cloud:///1ef310cc-41bc-4ea0-aeda-ed8253d124f8"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/user/post-image-user/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"post-image-user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lấy tất cả người dùng",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/user/get-users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"get-users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lấy hình lưu theo người dùng",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/get-save-image-by-user/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"get-save-image-by-user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "danh sách ảnh đã tạo theo người dùng",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/product/get-image-by-user/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"get-image-by-user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Thêm hình ảnh",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "postman-cloud:///1ef310cc-41bc-4ea0-aeda-ed8253d124f8"
+						},
+						{
+							"key": "ten_hinh",
+							"value": "Duy hihi",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "mo_ta",
+							"value": "asd",
+							"type": "text"
+						},
+						{
+							"key": "nguoi_dung_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/product/add-image",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"add-image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lưu hình ảnh theo người dùng",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjF9LCJpYXQiOjE3MjA5NTgxNzgsImV4cCI6MTcyMTAwMTM3OH0.Rtga_U2Rw2diYzymcbn-GhBXcZNMbYuzditDeC7BZlc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hinh_id\":11,\r\n    \"nguoi_dung_id\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product/add-image-save",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"add-image-save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Xóa hình ảnh",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjF9LCJpYXQiOjE3MjA5NTcyMDMsImV4cCI6MTcyMTAwMDQwM30.sthuFwruco98lFR3Nhr5uRQnb7YxlPQvJBA9zi09EgM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/product/delete-image/9",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"delete-image",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "chỉnh sửa người dùng",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im5ndW9pX2R1bmdfaWQiOjF9LCJpYXQiOjE3MjA5NTgxNzgsImV4cCI6MTcyMTAwMTM3OH0.Rtga_U2Rw2diYzymcbn-GhBXcZNMbYuzditDeC7BZlc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"duyp7474@gmail.com\",\r\n    \"hoTen\":\"Dyuy2\",\r\n    \"tuoi\":20\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/edit-user/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"edit-user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
